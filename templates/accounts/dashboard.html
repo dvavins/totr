@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    {{ request.user }}
+
+<div>
+    <a href="{% url 'todos:addtodo' %}">Add Todos</a>
+    <a href="{% url 'todos:viewtodos' %}">View Todos</a>
+</div>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+    <div>
+    <a href="{% url 'tranx:addtranx' %}">Add Todos</a>
+    <a href="{% url 'tranx:viewtranx' %}">View Todos</a>
+</div>
+    <p>.</p>
+    <p>.</p>
+    <p>.</p>
+<div>
+    <a href="{% url 'accounts:logout' %}">Logout</a>
+</div>
+
+</body>
+</html>

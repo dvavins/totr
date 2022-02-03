@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Todos</title>
+</head>
+<body>
+<a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+
+<form action="{% url 'todos:addtodo' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submitt</button>
+</form>
+</body>
+</html>

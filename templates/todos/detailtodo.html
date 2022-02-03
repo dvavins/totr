@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail View</title>
+</head>
+<body>
+<a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+<p>
+    {{ todo.name }}
+</p>
+<p>
+    {{ todo.desc }}
+</p>
+<p>
+    {{ todo.todo_date }}
+</p>
+<p>
+    {{ todo.date_created }}
+</p>
+<p>
+    {{ todo.is_completed }}
+</p>
+<a class="btn btn-danger" href="{% url 'todos:deletetodo' todo.slug %}" onclick="return confirm('Are you sure?')">Delete</a>
+</body>
+</html>

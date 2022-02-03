@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Todos</title>
+</head>
+<body>
+<a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+{% for item in todos_items %}
+    <p>
+        <a href="{% url 'todos:tododetail' item.slug %}">{{ item.name }}</a>
+    </p>
+    <p>
+    {{ item.todo_date }}
+    </p>
+    <p>
+    {{ item.is_completed }}<br>
+        <br>
+    </p>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Virtual Env
+venv/
+.idea
+
+# Files
+Todo&Tranx.txt
+*/__pycache__/*
+*.pyc
+*/migrations/*
+
+!*/migrations/__init__.py
+
+#Database
+db.sqlite3
+
+# Folders

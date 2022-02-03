@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+{% for item in tranx_items %}
+    <p>
+        <a href="{% url 'tranx:detailtranx' item %}">{{ item.name }}</a>
+    </p>
+    <p>
+    {{ item.paid_on }}
+    </p>
+    <p>
+    {{ item.is_completed }}<br>
+        <br>
+    </p>
+{% endfor %}
+</body>
+</html>
