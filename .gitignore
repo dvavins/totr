@@ -1,12 +1,12 @@
 # Virtual Env
 venv/
 .idea
+*/migrations/*
 
 # Files
 Todo&Tranx.txt
 */__pycache__/*
 *.pyc
-*/migrations/*
 
 !*/migrations/__init__.py
 
