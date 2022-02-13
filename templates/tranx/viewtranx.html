@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+    <a href="{% url 'account:dashboard' %}">Dashboard</a>
 {% for item in tranx_items %}
     <p>
         <a href="{% url 'tranx:detailtranx' item %}">{{ item.name }}</a>

@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Todos</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Add Todo
+{% endblock %}
+
+
+{% block body %}
+
 <a href="{% url 'account:dashboard' %}">Dashboard</a>
 
 <form action="{% url 'todos:addtodo' %}" method="POST">
@@ -12,5 +15,5 @@
     {{ form.as_p }}
     <button type="submit">Submitt</button>
 </form>
-</body>
-</html>
+
+{% endblock  %}

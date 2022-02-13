@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 from datetime import date
 
-from accounts.models import Account
+from account.models import Account
+from tranx.utils import random_string_generator
 
 
 class Transactions(models.Model):
@@ -31,4 +32,6 @@ class Transactions(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if Transactions.objects.filter(slug=self.slug).exists():
+            self.slug = '{slug}-{randstr}'.format(slug=self.slug, randstr=random_string_generator(size=4))
         return super(Transactions, self).save(*args, **kwargs)

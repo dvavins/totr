@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+<a href="{% url 'account:dashboard' %}">Dashboard</a>
 <form action="{% url 'tranx:addtranx' %}" method="POST">
     {% csrf_token %}
 

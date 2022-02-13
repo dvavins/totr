@@ -1,61 +1,61 @@
-from os import name
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from accounts.models import Account
-# from todos.models import Todos
-from tranx.models import Transactions
+from account.models import Account, Contact
+from teams.utils import random_string_generator
 
 
 class Teams(models.Model):
-    name = models.CharField(max_length=40,)
-    slug = models.SlugField(max_length=40, blank=True)
+
+    team = models.CharField(max_length=40)
+    team_admin = models.ManyToManyField(Account, related_name='team_admin')
+    slug = models.SlugField(max_length=40, blank=True, unique=True)
 
     type = (('private', 'Private'),
-            ('open', 'Public'),
+            ('public', 'Public'),
             ('others', 'Others'))
     team_type = models.CharField(max_length=7, choices=type, default='private')
     date_created = models.DateField(auto_now_add=True)
 
-    # Add some logic to prevent admin field empty if used deletes him/herself
-    admin = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
-
     def __str__(self):
-        return self.name
-        
+        return self.team
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.team)
+        if Teams.objects.filter(slug=self.slug).exists():
+            self.slug = '{slug}-{randstr}'.format(slug=self.slug, randstr=random_string_generator(size=4))
         return super(Teams, self).save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'
 
-class Members(models.Model): 
 
+class Members(models.Model):
     team = models.ForeignKey(Teams, on_delete=models.CASCADE)
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    status_choices = (('requested', 'Requested'),
-                      ('accepted', 'Accepted'),
-                      ('rejected', 'Rejected'))
-    status = models.CharField(max_length=9, choices=status_choices, default='requested')
-    requested_on = models.DateTimeField(auto_now_add=True)
-    date_joined = models.DateField()
+    members = models.ManyToManyField(Contact)
+    joined_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
-    
+        return self.team.team
 
-class TeamTodos(models.Model):
+    class Meta:
+        verbose_name = 'Member'
+        verbose_name_plural = 'Members'
 
-    name = models.ForeignKey(Teams, on_delete=models.CASCADE)
-    member = models.ManyToManyField(Members)
 
-    @property
-    def team_name(self):
-        return f'{self.name}-Todos'
+class TodosGroup(models.Model):
+    team = models.OneToOneField(Teams, on_delete=models.CASCADE)
+    member = models.ManyToManyField(Members, blank=True)
 
     def __str__(self):
-        return self.team_name
+        return f'{self.team}-Todos'
 
-    # def save(self, *args, **kwargs):
-    #     if self.member in self.name.user:
-    #         return super(TeamTodos, self).save(*args, **kwargs)
-    
+
+class TranxGroup(models.Model):
+    team = models.OneToOneField(Teams, on_delete=models.CASCADE)
+    member = models.ManyToManyField(Members, blank=True)
+
+    def __str__(self):
+        return f'{self.team}-Tranx'
+

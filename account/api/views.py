@@ -7,8 +7,8 @@ from rest_framework.renderers import(
 )
 
 
-from accounts.models import Account
-from accounts.api.serializer import AccountSerializer, CreateAccountSerializer
+from account.models import Account
+from account.api.serializer import AccountSerializer, CreateAccountSerializer
 
 
 

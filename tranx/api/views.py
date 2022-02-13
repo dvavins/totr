@@ -6,7 +6,7 @@
 #                                     renderer_classes, parser_classes, throttle_classes)
 # from rest_framework.throttling import (AnonRateThrottle, BaseThrottle, 
 #                             ScopedRateThrottle, SimpleRateThrottle, UserRateThrottle)
-# from accounts.models import Account
+# from account.models import Account
 
 
 

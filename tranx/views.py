@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from tranx.models import Transactions
 from tranx.forms import AddTransactionForm
 
-@login_required(login_url='accounts:signin')
+@login_required(login_url='account:signin')
 def addtranx(request):
     if request.method == 'POST':
         form = AddTransactionForm(request.POST)
@@ -17,13 +17,13 @@ def addtranx(request):
             data.paid_on = form.cleaned_data['paid_on']
             data.amount = form.cleaned_data['amount']
             data.save()
-            return redirect('/accounts/dashboard')
+            return redirect('/account/dashboard')
     else:
         form = AddTransactionForm()
     return render(request, 'tranx/addtranx.html', context={'form': form})
 
 
-@login_required(login_url='accounts:signin')
+@login_required(login_url='account:signin')
 def viewtranx(request):
     try:
         tranx_items = Transactions.objects.filter(user=request.user)
@@ -36,7 +36,7 @@ def viewtranx(request):
 
 
 
-@login_required(login_url='accounts:signin')
+@login_required(login_url='account:signin')
 def detailtranx(request, tranx_name):
     item = Transactions.objects.get(user=request.user, slug=tranx_name)
     context = {

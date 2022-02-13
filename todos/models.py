@@ -5,13 +5,14 @@ from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 
 
-from accounts.models import Account
+from account.models import Account
+from todos.utils import random_string_generator
 
 
 class Todos(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    slug = models.SlugField(max_length=50, blank=True)
+    slug = models.SlugField(max_length=50, blank=True, unique=True, )
     desc = models.TextField(blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     todo_date = models.DateField(default=date.today)
@@ -27,7 +28,11 @@ class Todos(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if Todos.objects.filter(slug=self.slug).exists():
+            self.slug = '{slug}-{randstr}'.format(slug=self.slug, randstr=random_string_generator(size=4))
         return super(Todos, self).save(*args, **kwargs)
 
     def get_url(self):
         return reverse('tododetail', args=[self.slug])
+
+

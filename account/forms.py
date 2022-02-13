@@ -1,6 +1,6 @@
 from django import forms
 
-from accounts.models import Account
+from account.models import Account
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -32,3 +32,18 @@ class UserRegistrationForm(forms.ModelForm):
         self.fields['email'].widget.attrs['placeholder'] = 'Enter Your Email'
         # for field in self.fields:
         #     self.fields[field].widget.attrs['class'] = ''
+
+
+
+class SigninForm(forms.ModelForm):
+
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Enter Username'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Enter Password'
+    }))
+
+    class Meta:
+        model = Account
+        fields = ['username', 'password']

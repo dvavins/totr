@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from todos.models import Todos
-from accounts.models import Account
+from account.models import Account
 
 
 class TodoSerializer(serializers.ModelSerializer):

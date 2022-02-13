@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<a href="{% url 'account:dashboard' %}">Dashboard</a>
+<p>
+    {{ todo.name }}
+</p>
+<p>
+    {{ todo.desc }}
+</p>
+<p>
+    {{ todo.todo_date }}
+</p>
+<p>
+    {{ todo.date_created }}
+</p>
+<p>
+    {{ todo.is_completed }}
+</p>
+<a class="btn btn-danger" href="{% url 'todos:deletetodo' todo.slug %}"
+    onclick="return confirm('Are you sure?')">Delete</a>
+
+{% endblock %}

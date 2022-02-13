@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.routers import SimpleRouter, Route, DynamicRoute
 
 
-from accounts.api.viewsets import AccountsViewset
+from account.api.viewsets import AccountsViewset
 from todos.api.viewsets import TodosViewset
 from tranx.api.viewsets import TranxViewset
 
@@ -22,6 +22,6 @@ from tranx.api.viewsets import TranxViewset
 
 
 router = DefaultRouter()
-router.register('accounts', AccountsViewset, basename='acount_api')
+router.register('account', AccountsViewset, basename='acount_api')
 router.register('todos', TodosViewset, basename='todo_api')
 router.register('tranx', TranxViewset, basename='tranx_api')

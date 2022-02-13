@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import(
     BrowsableAPIRenderer
 )
-from accounts.models import Account
+from account.models import Account
 
 from todos.api.serializer import TodoCreateSerailizer, TodoSerializer, TodoTeamSerializer
 from todos.models import Todos

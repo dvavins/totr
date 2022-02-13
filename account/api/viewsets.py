@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from accounts.models import Account
-from accounts.api.serializer import (AccountSerializer, AccountViewSerializer,
-                                     CreateAccountSerializer, )
+from account.models import Account
+from account.api.serializer import (AccountSerializer, AccountViewSerializer,
+                                    CreateAccountSerializer, )
 
 
 class AccountsViewset(viewsets.ModelViewSet):

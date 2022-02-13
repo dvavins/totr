@@ -1,20 +1,20 @@
 from django.contrib import admin
 
-from teams.models import Teams, Members, TeamTodos
+from teams.models import Teams, Members, TodosGroup, TranxGroup
 
 
 class MemberInline(admin.StackedInline):
     model = Members
-    readonly_fields = ['status']
     extra = 0
 
 
 class TeamsAdmin(admin.ModelAdmin):
-    
+
     readonly_fields = ['slug']
     inlines = [MemberInline]
 
 
 admin.site.register(Teams, TeamsAdmin)
 admin.site.register(Members)
-admin.site.register(TeamTodos)
+admin.site.register(TodosGroup)
+admin.site.register(TranxGroup)
