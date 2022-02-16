@@ -1,6 +1,9 @@
 from django.db import models
-
+from django.urls import reverse
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+
 from account.utils import ref_code_generator
 
 
@@ -86,16 +89,26 @@ class Account(AbstractUser):
 
 class Profile(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    pimg = models.ImageField()
+    slug = models.SlugField(blank=True, null=True)
+    pimg = models.ImageField(blank=True, null=True)
     confirmation_needed = models.BooleanField(default=False)
     hide_email = models.BooleanField(default=False)
     show_details = models.BooleanField(default=False)
+    email_verified = models.BooleanField(default=False)
+    phone_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
 
     def full_name(self):
         return f'{self.user.first_name} {self.user.last_name}'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user)
+        return super(Profile, self).save(*args, **kwargs)
+
+    def get_url(self):
+        return reverse('profile/', args=[self.slug])
 
 
 class Referral(models.Model):

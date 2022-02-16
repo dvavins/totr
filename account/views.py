@@ -37,37 +37,38 @@ def signup(request):
     return render(request, 'account/signup.html', context)
 
 
-def signin(request):
-    if request.method == 'POST':
-        form = SigninForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                messages.success(request, 'Login Successfully')
-                return redirect('/account/dashboard/')
-    else:
-        print('error')
-        form = SigninForm
-        messages.error(request, 'Invalid user credentials')
-    context = {
-        'form': form
-    }
-    return render(request, 'account/signin.html', context)
+# def signin(request):
+#     if request.method == 'POST':
+#         form = SigninForm(request.POST)
+#
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user is not None:
+#                 auth.login(request, user)
+#                 messages.success(request, 'Login Successfully')
+#                 return redirect('/account/dashboard/')
+#     else:
+#         print('error')
+#         form = SigninForm
+#         messages.error(request, 'Invalid user credentials')
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'account/signin.html', context)
 
 
 def logout(request):
     if request.user.is_authenticated:
         auth.logout(request)
         messages.success(request, 'User have been successfully logged out.')
-        return redirect('/account/signin')
+        return redirect('/account/login')
     else:
-        return redirect('/account/signin')
+        return redirect('/account/login')
 
 
-@login_required(login_url='account')
+@login_required(login_url='account:signin')
 def dashboard(request):
     return render(request, 'account/dashboard.html')
 
@@ -76,6 +77,7 @@ def profile(request):
     pass
 
 
+@login_required(login_url='two_factor:login')
 def refer(request):
     data = Referral()
     svg = None
@@ -99,5 +101,9 @@ def refer(request):
         'img': svg
     }
     return render(request, 'account/refer.html', context)
+
+
+def viewproile(request, usernm):
+    pass
 
 

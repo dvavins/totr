@@ -34,5 +34,3 @@ class Todos(models.Model):
 
     def get_url(self):
         return reverse('tododetail', args=[self.slug])
-
-

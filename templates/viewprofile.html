@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <p>User: {{ profile.user }}</p>
+        <p>Full Name: {{ profile.full_name }}</p>
+        {% if profile.hide_email %}
+            <p>Hidden Mail</p>
+        {% else %}
+            <p>Email: {{ profile.user.email }}</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

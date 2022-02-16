@@ -52,6 +52,25 @@ class TodosGroup(models.Model):
         return f'{self.team}-Todos'
 
 
+class Point(models.Model):
+    todo = models.ForeignKey(TodosGroup, on_delete=models.CASCADE)
+    point = models.CharField(max_length=40)
+    added_on = models.DateTimeField(auto_now_add=True)
+    tag_choice = (
+        ('important', 'Important'),
+        ('emergency', 'Emergency'),
+        ('alert', 'Alert'),
+        ('careful', 'Careful'),
+    )
+    added_by = models.ForeignKey(Contact, on_delete=models.DO_NOTHING)
+    assigned_to = models.ForeignKey(Contact, on_delete=models.DO_NOTHING, blank=True, null=True,
+                                    related_name='assigned_to')
+    is_completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.point
+
+
 class TranxGroup(models.Model):
     team = models.OneToOneField(Teams, on_delete=models.CASCADE)
     member = models.ManyToManyField(Members, blank=True)

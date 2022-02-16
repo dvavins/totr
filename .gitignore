@@ -2,6 +2,7 @@
 venv/
 .idea
 */migrations/*
+media_root
 
 # Files
 Todo&Tranx.txt

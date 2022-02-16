@@ -35,7 +35,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 
-class SigninForm(forms.ModelForm):
+class SigninForm(forms.Form):
 
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Enter Username'
@@ -44,6 +44,3 @@ class SigninForm(forms.ModelForm):
         'placeholder': 'Enter Password'
     }))
 
-    class Meta:
-        model = Account
-        fields = ['username', 'password']

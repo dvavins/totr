@@ -1,1 +1,13 @@
-<a href="{% url 'account:logout' %}">Logout</a>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ request.user }} Dashboard
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a href="{% url 'todos:addtodo' %}">Add Todo</a>
+        <a href="{% url 'todos:viewtodos' %}">My Todos</a>
+    </div>
+
+{% endblock %}
